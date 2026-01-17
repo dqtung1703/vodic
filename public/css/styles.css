@@ -989,3 +989,42 @@ img {
     justify-content: center;
 }
 
+/* News Meta */
+.news-excerpt {
+    color: var(--gray-600);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-top: 0.75rem;
+}
+
+.news-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-200);
+    font-size: 0.875rem;
+    color: var(--gray-500);
+}
+
+.news-date, .news-views {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.no-posts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--gray-500);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ocean-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: var(--font-display);
+}

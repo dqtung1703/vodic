@@ -48,21 +48,56 @@
 
 <!-- News Grid -->
 <section class="news-section">
-    <div class="news-grid">
-        <!-- Sample news cards - sau này sẽ load từ database -->
-        <article class="news-card">
-            <div class="news-badge">
-                <span class="badge-category">Môi trường biển</span>
-            </div>
-            <a href="#" class="news-image-link">
-                <img src="{{ asset('images/placeholder-ocean.jpg') }}" alt="Ocean" class="news-image">
-            </a>
-            <div class="news-content">
-                <h3 class="news-title">
-                    <a href="#">Cập nhật dữ liệu chất lượng nước biển năm 2026</a>
-                </h3>
-            </div>
-        </article>
+    <div class="container">
+        <h2 class="section-title">Tin tức mới nhất</h2>
+        
+        <div class="news-grid">
+            @forelse($featured_posts as $post)
+                <article class="news-card">
+                    <div class="news-badge">
+                        <span class="badge-category">{{ $post->category->name }}</span>
+                    </div>
+                    
+                    @if($post->featured_image)
+                        <a href="{{ route('news.show', $post->slug) }}" class="news-image-link">
+                            <img src="{{ asset('storage/' . $post->featured_image) }}" 
+                                 alt="{{ $post->title }}" 
+                                 class="news-image">
+                        </a>
+                    @else
+                        <a href="{{ route('news.show', $post->slug) }}" class="news-image-link">
+                            <img src="{{ asset('images/placeholder-ocean.jpg') }}" 
+                                 alt="{{ $post->title }}" 
+                                 class="news-image">
+                        </a>
+                    @endif
+                    
+                    <div class="news-content">
+                        <h3 class="news-title">
+                            <a href="{{ route('news.show', $post->slug) }}">{{ $post->title }}</a>
+                        </h3>
+                        
+                        @if($post->excerpt)
+                            <p class="news-excerpt">{{ Str::limit($post->excerpt, 100) }}</p>
+                        @endif
+                        
+                        <div class="news-meta">
+                            <span class="news-date">{{ $post->published_at->format('d/m/Y') }}</span>
+                            <span class="news-views">{{ $post->views }} lượt xem</span>
+                        </div>
+                    </div>
+                </article>
+            @empty
+                <div class="no-posts">
+                    <p>Chưa có bài viết nào được xuất bản.</p>
+                </div>
+            @endforelse
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ route('news.index') }}" class="btn btn-primary">Xem tất cả tin tức</a>
+        </div>
     </div>
 </section>
+
 @endsection

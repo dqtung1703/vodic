@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Trang chủ
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/tim-kiem', [PostController::class, 'index'])->name('search');
 // Tin tức
 Route::get('/tin-tuc', [PostController::class, 'index'])->name('news.index');
 Route::get('/tin-tuc/{slug}', [PostController::class, 'show'])->name('news.show');
@@ -29,9 +29,12 @@ Route::get('/danh-muc/{slug}', [CategoryController::class, 'show'])->name('categ
 Route::view('/gioi-thieu', 'pages.about')->name('about');
 Route::view('/lien-he', 'pages.contact')->name('contact');
 
+// Tìm kiếm
+Route::get('/tim-kiem', [PostController::class, 'index'])->name('search');
+
 /*
 |--------------------------------------------------------------------------
-| Admin Routes - Chỉ admin
+| Admin Routes - Chỉ admin (THÊM PHẦN NÀY)
 |--------------------------------------------------------------------------
 */
 
