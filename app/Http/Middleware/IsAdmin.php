@@ -8,15 +8,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IsAdmin
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->check()) {
             return redirect()->route('login')
-                ->with('error', 'Vui lòng đăng nhập để tiếp tục.');
+                ->with('error', 'Vui lòng đăng nhập để tiếp tục');
         }
 
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Bạn không có quyền truy cập trang này.');
+        if (!auth()->user()->is_admin) {
+            abort(403, 'Bạn không có quyền truy cập trang này');
         }
 
         return $next($request);

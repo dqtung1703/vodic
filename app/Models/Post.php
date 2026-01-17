@@ -69,8 +69,8 @@ class Post extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'published')
-                    ->whereNotNull('published_at')
-                    ->where('published_at', '<=', now());
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
     }
 
     public function scopeLatest($query)
@@ -81,7 +81,7 @@ class Post extends Model
     // Accessors
     public function getExcerptAttribute($value)
     {
-        return $value ?: Str::limit(strip_tags($this->content), 150);
+        return $value ?: Str::limit(strip_tags($this->content ?? ''), 150);
     }
 
     // Helper methods

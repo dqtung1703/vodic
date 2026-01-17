@@ -26,6 +26,7 @@
             </svg>
             <span>Dữ liệu biển Việt Nam</span>
         </a>
+        
         <a href="#" class="explore-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/>
@@ -33,6 +34,7 @@
             </svg>
             <span>Dự báo thời tiết biển</span>
         </a>
+        
         <a href="#" class="explore-item">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M2 12c2-4 6-7 10-7s8 3 10 7c-2 4-6 7-10 7s-8-3-10-7z"/>
@@ -99,5 +101,4 @@
         </div>
     </div>
 </section>
-
 @endsection
