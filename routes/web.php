@@ -8,55 +8,23 @@ use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Public Routes - Không cần đăng nhập
-|--------------------------------------------------------------------------
-*/
-
-// Trang chủ
+// Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Tin tức
 Route::get('/tin-tuc', [PostController::class, 'index'])->name('news.index');
 Route::get('/tin-tuc/{slug}', [PostController::class, 'show'])->name('news.show');
-
-// Danh mục
 Route::get('/danh-muc', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/danh-muc/{slug}', [CategoryController::class, 'show'])->name('categories.show');
-
-// Trang tĩnh
 Route::view('/gioi-thieu', 'pages.about')->name('about');
 Route::view('/lien-he', 'pages.contact')->name('contact');
-
-// Tìm kiếm
 Route::get('/tim-kiem', [PostController::class, 'index'])->name('search');
 
-/*
-|--------------------------------------------------------------------------
-| Admin Routes - Chỉ admin (THÊM PHẦN NÀY)
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    
-    // Dashboard
+// Admin Routes - SỬA middleware từ ['auth', 'admin'] thành 'admin' vì admin middleware đã include auth
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // Categories Management
     Route::resource('categories', AdminCategoryController::class);
-    
-    // Posts Management
     Route::resource('posts', AdminPostController::class);
     Route::delete('posts/images/{image}', [AdminPostController::class, 'deleteImage'])
         ->name('posts.images.delete');
-    
 });
-
-/*
-|--------------------------------------------------------------------------
-| Authentication Routes
-|--------------------------------------------------------------------------
-*/
 
 require __DIR__.'/auth.php';

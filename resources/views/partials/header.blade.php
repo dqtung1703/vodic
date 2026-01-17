@@ -7,9 +7,18 @@
                 <span class="weather-label">Tìm kiếm thời tiết</span>
                 <div class="search-input-wrapper">
                     <input type="text" placeholder="Nhập khu vực hoặc địa điểm" class="weather-input">
+                    <!-- Weather Search Button SVG - FIX -->
                     <button class="search-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            ircle cx="11" cy="11" r="8"></circle>
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Header Search Button SVG - FIX -->
+                    <button type="submit" class="header-search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
                             <path d="M21 21l-4.35-4.35"></path>
                         </svg>
                     </button>
