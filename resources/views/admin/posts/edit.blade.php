@@ -246,35 +246,30 @@
 
     // Delete gallery image
     function deleteImage(imageId) {
-        if (!confirm('Bạn có chắc muốn xóa hình ảnh này?')) return;
-        
-        fetch(`{{ route('admin.posts.images.delete', '') }}/${imageId}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Remove image element from DOM
-                const imageElement = document.getElementById(`image-${imageId}`);
-                if (imageElement) {
-                    imageElement.remove();
-                }
-                
-                // Show success message
-                alert('Đã xóa hình ảnh thành công!');
-            } else {
-                alert('Có lỗi xảy ra khi xóa hình ảnh');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Có lỗi xảy ra khi xóa hình ảnh');
-        });
-    }
+    if (!confirm('Bạn có chắc muốn xóa hình ảnh này?')) return;
+
+    fetch(`{{ url('admin/posts/images') }}/${imageId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const imageElement = document.getElementById(`image-${imageId}`);
+            if (imageElement) imageElement.remove();
+            alert('✅ Đã xóa hình ảnh thành công!');
+        } else {
+            alert('❌ Có lỗi xảy ra khi xóa hình ảnh');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert('❌ Có lỗi xảy ra khi xóa hình ảnh');
+    });
+}
 
     // Remove featured image (mark for deletion)
     function removeFeaturedImage() {
