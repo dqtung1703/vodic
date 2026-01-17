@@ -6,44 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-    $table->id();
-
-    $table->foreignId('category_id')->nullable()
-          ->constrained()->nullOnDelete();
-
-    $table->foreignId('author_id')
-          ->constrained('users')->cascadeOnDelete();
-
-    $table->string('slug')->unique();
-    $table->string('title');
-    $table->text('summary')->nullable();
-    $table->longText('content');
-
-    $table->string('thumbnail_path', 500)->nullable(); // ảnh cover (optional)
-
-    $table->enum('status', ['draft','published','archived'])->default('draft');
-    $table->timestamp('published_at')->nullable();
-
-    $table->unsignedBigInteger('view_count')->default(0);
-
-    $table->timestamps();
-    $table->softDeletes();
-
-    $table->index(['status','published_at']);
-    $table->index(['category_id','published_at']);
-});
-
+            $table->id();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->text('excerpt')->nullable();
+            $table->longText('content');
+            $table->string('featured_image')->nullable();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
+            $table->timestamp('published_at')->nullable();
+            $table->integer('views')->default(0);
+            $table->timestamps();
+            
+            $table->index('status');
+            $table->index('published_at');
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('posts');
