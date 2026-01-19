@@ -15,6 +15,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'is_locked',
     ];
 
     protected $hidden = [
@@ -28,6 +29,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'is_locked' => 'boolean',
         ];
     }
 
@@ -41,5 +43,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->is_admin;
+    }
+
+    public function isLocked(): bool
+    {
+        return $this->is_locked;
     }
 }

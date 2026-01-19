@@ -65,6 +65,14 @@
                     Đăng nhập
                 </button>
 
+                <!-- Register Link -->
+                <div class="form-footer" style="text-align: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                    <span style="color: var(--text-secondary); font-size: 0.9375rem;">Chưa có tài khoản? </span>
+                    <a href="#" onclick="switchToRegister(); return false;" class="register-link" style="color: var(--ocean-blue); font-weight: 600; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--ocean-dark)'" onmouseout="this.style.color='var(--ocean-blue)'">
+                        Đăng ký ngay
+                    </a>
+                </div>
+
                 <!-- Forgot Password -->
                 @if (Route::has('password.request'))
                     <div class="form-footer">
@@ -77,3 +85,10 @@
         </div>
     </div>
 </div>
+
+<script>
+function switchToRegister() {
+    closeLoginModal();
+    openRegisterModal();
+}
+</script>

@@ -22,9 +22,6 @@
         </p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.4s both;">
             <a href="{{ route('news.index') }}" class="btn btn-primary" style="background: var(--gov-gold); color: var(--gray-900);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                </svg>
                 Khám phá dữ liệu
             </a>
             <a href="{{ route('about') }}" class="btn" style="background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px);">
@@ -44,14 +41,14 @@
         <h2>Dịch vụ nổi bật</h2>
     </div>
     <div class="explore-grid">
-        <a href="#" class="explore-item">
+        <a href="https://bienvietnam.gov.vn/vi" class="explore-item" target="_blank" >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--white);">
                 <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 002-2v-4M7 10l5 5 5-5M12 3v12"/>
             </svg>
             <span>Dữ liệu biển Việt Nam</span>
         </a>
         
-        <a href="#" class="explore-item">
+        <a href="https://nchmf.gov.vn/kttv/" class="explore-item" target="_blank">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--white);">
                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
                 <circle cx="12" cy="12" r="5"/>
@@ -59,7 +56,7 @@
             <span>Dự báo thời tiết biển</span>
         </a>
         
-        <a href="#" class="explore-item">
+        <a href="https://nodc.gov.vn/" class="explore-item" target="_blank">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--white);">
                 <circle cx="12" cy="12" r="10"/>
                 <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
@@ -68,7 +65,7 @@
             <span>Bản đồ biển</span>
         </a>
         
-        <a href="#" class="explore-item">
+        <a href="https://thuvien.vodic.vn/" class="explore-item" target="_blank">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--white);">
                 <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>

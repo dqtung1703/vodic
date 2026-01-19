@@ -18,6 +18,8 @@ class DashboardController extends Controller
             'total_categories' => Category::count(),
             'total_users' => User::count(),
             'total_views' => Post::sum('views'),
+            'active_users' => User::where('is_locked', false)->count(),
+            'locked_users' => User::where('is_locked', true)->count(),
         ];
 
         $recent_posts = Post::with(['category', 'user'])

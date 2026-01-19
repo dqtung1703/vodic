@@ -1,59 +1,68 @@
 @extends('admin.admin')
 
-
 @section('title', 'Thêm Danh mục mới')
 @section('page-title', 'Thêm Danh mục mới')
 
 @section('content')
-<div class="max-w-3xl">
-    <div class="bg-white rounded-lg shadow p-6">
+<div class="form-container" style="max-width: 800px;">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>📁 Tạo Danh mục mới</h2>
+        </div>
+
         <form action="{{ route('admin.categories.store') }}" method="POST">
             @csrf
+            <div class="form-body">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        Tên danh mục <span class="required">*</span>
+                    </label>
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" 
+                        class="form-input @error('name') error @enderror"
+                        placeholder="Nhập tên danh mục" required>
+                    @error('name')
+                        <span class="form-error">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="mb-6">
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                    Tên danh mục <span class="text-red-500">*</span>
-                </label>
-                <input type="text" name="name" id="name" value="{{ old('name') }}" 
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
-                    placeholder="Nhập tên danh mục" required>
-                @error('name')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                <div class="form-group">
+                    <label for="slug" class="form-label">Slug (URL thân thiện)</label>
+                    <input type="text" name="slug" id="slug" value="{{ old('slug') }}" 
+                        class="form-input @error('slug') error @enderror"
+                        placeholder="tu-dong-tao-tu-ten-danh-muc">
+                    <span class="form-hint">Để trống để tự động tạo từ tên danh mục</span>
+                    @error('slug')
+                        <span class="form-error">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="mb-6">
-                <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">
-                    Slug (URL thân thiện)
-                </label>
-                <input type="text" name="slug" id="slug" value="{{ old('slug') }}" 
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('slug') border-red-500 @enderror"
-                    placeholder="tu-dong-tao-tu-ten-danh-muc">
-                <p class="mt-1 text-sm text-gray-500">Để trống để tự động tạo từ tên danh mục</p>
-                @error('slug')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
+                <div class="form-group">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <textarea name="description" id="description" rows="4" 
+                        class="form-textarea @error('description') error @enderror"
+                        placeholder="Nhập mô tả cho danh mục">{{ old('description') }}</textarea>
+                    @error('description')
+                        <span class="form-error">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="mb-6">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                    Mô tả
-                </label>
-                <textarea name="description" id="description" rows="4" 
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror"
-                    placeholder="Nhập mô tả cho danh mục">{{ old('description') }}</textarea>
-                @error('description')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="flex gap-4">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium">
-                    💾 Lưu danh mục
-                </button>
-                <a href="{{ route('admin.categories.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium">
-                    ❌ Hủy bỏ
-                </a>
+                <div class="form-actions">
+                    <button type="submit" class="btn-form-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        Lưu danh mục
+                    </button>
+                    <a href="{{ route('admin.categories.index') }}" class="btn-form-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        Hủy bỏ
+                    </a>
+                </div>
             </div>
         </form>
     </div>
@@ -64,7 +73,7 @@
     // Auto-generate slug from name
     document.getElementById('name').addEventListener('input', function(e) {
         const slugInput = document.getElementById('slug');
-        if (!slugInput.value) {
+        if (!slugInput.value || slugInput.dataset.auto !== 'false') {
             const name = e.target.value;
             const slug = name.toLowerCase()
                 .normalize('NFD')
@@ -74,6 +83,10 @@
                 .replace(/(^-|-$)/g, '');
             slugInput.value = slug;
         }
+    });
+
+    document.getElementById('slug').addEventListener('input', function() {
+        this.dataset.auto = 'false';
     });
 </script>
 @endpush

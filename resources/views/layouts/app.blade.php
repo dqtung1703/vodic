@@ -20,6 +20,7 @@
     @include('partials.gov-banner')
     @include('partials.header')
     @include('partials.login-modal')
+    @include('partials.register-modal')
 
     <main>
         @yield('content')

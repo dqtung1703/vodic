@@ -33,7 +33,7 @@
                     </div>
                     
                     <div class="social-links" style="margin-top: 1.5rem;">
-                        <a href="#" class="social-link" aria-label="Facebook" title="Facebook">
+                        <a href="https://www.facebook.com/vodic.vn/?locale=vi_VN" class="social-link" aria-label="Facebook" title="Facebook" target="_blank">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
                             </svg>
@@ -74,11 +74,10 @@
                 <div class="footer-column">
                     <h4>Dịch vụ</h4>
                     <ul>
-                        <li><a href="#">Dữ liệu biển</a></li>
-                        <li><a href="#">Dự báo thời tiết biển</a></li>
-                        <li><a href="#">Bản đồ biển</a></li>
-                        <li><a href="#">Thư viện số</a></li>
-                        <li><a href="#">Hệ thống quan trắc</a></li>
+                        <li><a href="https://bienvietnam.gov.vn/vi" target="_blank">Dữ liệu biển</a></li>
+                        <li><a href="https://nchmf.gov.vn/kttv/" target="_blank">Dự báo thời tiết biển</a></li>
+                        <li><a href="https://nodc.gov.vn/" target="_blank">Bản đồ biển</a></li>
+                        <li><a href="https://thuvien.vodic.vn/" target="_blank">Thư viện số</a></li>
                     </ul>
                 </div>
                 
@@ -86,10 +85,7 @@
                     <h4>Hỗ trợ</h4>
                     <ul>
                         <li><a href="#">Hướng dẫn sử dụng</a></li>
-                        <li><a href="#">Câu hỏi thường gặp</a></li>
                         <li><a href="#">Góp ý - Phản hồi</a></li>
-                        <li><a href="#">Tải xuống</a></li>
-                        <li><a href="#">Sitemap</a></li>
                     </ul>
                 </div>
             </div>
