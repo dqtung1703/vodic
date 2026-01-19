@@ -20,24 +20,62 @@
                     </svg>
                     Tin tức
                 </a>
-                <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                    </svg>
-                    Danh mục
-                </a>
+                
+                <!-- Dropdown: Dữ liệu Biển đảo -->
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 002-2v-4M17 8l-5-5-5 5M12 3v12"></path>
+                        </svg>
+                        Dữ liệu Biển đảo
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 0.25rem;">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="https://vodic.gov.vn/open-data" target="_blank" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
+                            </svg>
+                            Trang dữ liệu mở
+                        </a>
+                        <a href="https://vodic.gov.vn/metadata" target="_blank" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            Thông tin metadata
+                        </a>
+                        <a href="https://vodic.gov.vn/library" target="_blank" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path>
+                            </svg>
+                            Trang thông tin thư viện
+                        </a>
+                        <a href="https://vodic.gov.vn/survey-map" target="_blank" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Bản đồ điều tra cơ bản
+                        </a>
+                        <a href="https://vodic.gov.vn/open-source" target="_blank" class="dropdown-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            Đề tài mã nguồn mở
+                        </a>
+                    </div>
+                </div>
+                
                 <a href="{{ route('about') }}" class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"></circle>
                         <path d="M12 16v-4M12 8h.01"></path>
                     </svg>
                     Giới thiệu
-                </a>
-                <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                    Liên hệ
                 </a>
                 
                 @auth
@@ -79,27 +117,7 @@
         </div>
     </div>
 
-    <!-- Bottom Row: Search Bar -->
-    <div class="header-nav">
-        <div class="header-container">
-            <div class="header-search">
-                <form action="{{ route('search') }}" method="GET">
-                    <input type="text" 
-                           name="search" 
-                           placeholder="Tìm kiếm tin tức, dữ liệu..." 
-                           class="header-search-input"
-                           value="{{ request('search') }}">
-                    <button type="submit" class="header-search-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21l-4.35-4.35"></path>
-                        </svg>
-                        <span style="margin-left: 0.5rem;">Tìm kiếm</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+
 </header>
 
 <!-- Mobile Menu -->

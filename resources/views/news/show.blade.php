@@ -1,118 +1,177 @@
 @extends('layouts.app')
 
-@section('title', $post->title)
+@section('title', $post->title . ' - VODIC')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto">
+<!-- Article Header -->
+<div style="background: linear-gradient(135deg, var(--ocean-blue), var(--ocean-dark)); padding: 3rem 1.5rem; color: white;">
+    <div class="container" style="max-width: 900px; margin: 0 auto;">
         <!-- Breadcrumb -->
-        <nav class="mb-6 text-sm text-gray-600">
-            <a href="{{ route('home') }}" class="hover:text-blue-600">Trang chủ</a>
-            <span class="mx-2">/</span>
-            <a href="{{ route('news.index') }}" class="hover:text-blue-600">Tin tức</a>
-            <span class="mx-2">/</span>
-            <a href="{{ route('categories.show', $post->category->slug) }}" class="hover:text-blue-600">
+        <nav style="margin-bottom: 1.5rem; font-size: 0.875rem; opacity: 0.9;">
+            <a href="{{ route('home') }}" style="color: white; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Trang chủ</a>
+            <span style="margin: 0 0.5rem;">/</span>
+            <a href="{{ route('news.index') }}" style="color: white; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Tin tức</a>
+            <span style="margin: 0 0.5rem;">/</span>
+            <a href="{{ route('categories.show', $post->category->slug) }}" style="color: white; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
                 {{ $post->category->name }}
             </a>
-            <span class="mx-2">/</span>
-            <span class="text-gray-900">{{ $post->title }}</span>
         </nav>
 
-        <!-- Article -->
-        <article class="bg-white rounded-lg shadow-lg p-8">
-            <!-- Header -->
-            <header class="mb-6">
-                <div class="flex items-center text-sm text-gray-500 mb-4">
-                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold mr-3">
-                        {{ $post->category->name }}
-                    </span>
-                    <span>📅 {{ $post->published_at->format('d/m/Y H:i') }}</span>
-                    <span class="ml-4">👁️ {{ number_format($post->views) }} lượt xem</span>
-                </div>
-                
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {{ $post->title }}
-                </h1>
-                
-                @if($post->excerpt)
-                <p class="text-xl text-gray-600 leading-relaxed">
-                    {{ $post->excerpt }}
-                </p>
-                @endif
-            </header>
+        <!-- Category Badge -->
+        <div style="margin-bottom: 1rem;">
+            <span style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600;">
+                {{ $post->category->name }}
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h1 style="font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            {{ $post->title }}
+        </h1>
+
+        <!-- Meta Info -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.9375rem; opacity: 0.95;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                {{ $post->published_at->format('d/m/Y H:i') }}
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                {{ number_format($post->views) }} lượt xem
+            </div>
+            @if($post->user)
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                {{ $post->user->name }}
+            </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+<!-- Article Content -->
+<div style="background: var(--gray-50); padding: 3rem 1.5rem;">
+    <div class="container" style="max-width: 900px; margin: 0 auto;">
+        <article style="background: white; border-radius: 16px; padding: 3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+            
+            <!-- Excerpt -->
+            @if($post->excerpt)
+            <div style="font-size: 1.25rem; color: var(--gray-700); line-height: 1.7; margin-bottom: 2rem; padding: 1.5rem; background: var(--gray-50); border-left: 4px solid var(--ocean-blue); border-radius: 8px;">
+                {{ $post->excerpt }}
+            </div>
+            @endif
 
             <!-- Featured Image -->
             @if($post->images->first())
-            <div class="mb-6">
+            <div style="margin-bottom: 2.5rem;">
                 <img src="{{ asset('storage/' . $post->images->first()->image_path) }}" 
                      alt="{{ $post->title }}"
-                     class="w-full rounded-lg shadow-md">
+                     style="width: 100%; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
             </div>
             @endif
 
             <!-- Content -->
-            <div class="prose prose-lg max-w-none mb-8">
-                {!! nl2br(e($post->content)) !!}
+            <div style="font-size: 1.0625rem; line-height: 1.8; color: var(--gray-800);">
+                {!! $post->content !!}
             </div>
 
-            <!-- Additional Images -->
+            <!-- Additional Images Gallery -->
             @if($post->images->count() > 1)
-            <div class="mb-8">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Hình ảnh liên quan</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div style="margin-top: 3rem; padding-top: 3rem; border-top: 2px solid var(--gray-200);">
+                <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--gray-900); margin-bottom: 1.5rem;">
+                    Hình ảnh liên quan
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
                     @foreach($post->images->skip(1) as $image)
-                    <div class="rounded-lg overflow-hidden shadow-md">
+                    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
                         <img src="{{ asset('storage/' . $image->image_path) }}" 
                              alt="Image {{ $loop->iteration }}"
-                             class="w-full h-48 object-cover hover:scale-105 transition">
+                             style="width: 100%; height: 200px; object-fit: cover;">
                     </div>
                     @endforeach
                 </div>
             </div>
             @endif
 
-            <!-- Footer -->
-            <footer class="pt-6 border-t border-gray-200">
-                <div class="flex justify-between items-center">
-                    <div class="text-sm text-gray-500">
-                        Cập nhật lần cuối: {{ $post->updated_at->format('d/m/Y H:i') }}
+            <!-- Article Footer -->
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--gray-200);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div style="color: var(--gray-500); font-size: 0.875rem;">
+                        Cập nhật: {{ $post->updated_at->format('d/m/Y H:i') }}
                     </div>
-                    <div class="flex gap-2">
-                        <button onclick="window.print()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm">
-                            🖨️ In bài viết
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button onclick="window.print()" class="btn" style="background: var(--gray-200); color: var(--gray-700); padding: 0.75rem 1.5rem; font-size: 0.9375rem;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 6 2 18 2 18 9"/>
+                                <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+                                <rect x="6" y="14" width="12" height="8"/>
+                            </svg>
+                            In bài viết
                         </button>
-                        <button onclick="sharePost()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">
-                            🔗 Chia sẻ
+                        <button onclick="sharePost()" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.9375rem;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="18" cy="5" r="3"/>
+                                <circle cx="6" cy="12" r="3"/>
+                                <circle cx="18" cy="19" r="3"/>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                            </svg>
+                            Chia sẻ
                         </button>
                     </div>
                 </div>
-            </footer>
+            </div>
         </article>
 
         <!-- Related Posts -->
         @if($relatedPosts && $relatedPosts->count() > 0)
-        <div class="mt-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Bài viết liên quan</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div style="margin-top: 4rem;">
+            <h2 style="font-size: 2rem; font-weight: 800; color: var(--gray-900); margin-bottom: 2rem;">
+                Bài viết liên quan
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
                 @foreach($relatedPosts as $related)
-                <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+                <article style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.12)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
                     @if($related->images->first())
                     <a href="{{ route('news.show', $related->slug) }}">
-                        <img src="{{ asset('storage/' . $related->images->first()->image_path) }}" 
-                             alt="{{ $related->title }}"
-                             class="w-full h-40 object-cover">
+                        <div style="position: relative; overflow: hidden; height: 200px;">
+                            <img src="{{ asset('storage/' . $related->images->first()->image_path) }}" 
+                                 alt="{{ $related->title }}"
+                                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                                 onmouseover="this.style.transform='scale(1.05)'"
+                                 onmouseout="this.style.transform='scale(1)'">
+                        </div>
                     </a>
                     @endif
                     
-                    <div class="p-4">
-                        <h3 class="font-bold text-gray-900 mb-2 hover:text-blue-600">
-                            <a href="{{ route('news.show', $related->slug) }}">
-                                {{ Str::limit($related->title, 60) }}
+                    <div style="padding: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 0.8125rem; color: var(--gray-500);">
+                            <span style="background: var(--ocean-blue); color: white; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 600;">
+                                {{ $related->category->name }}
+                            </span>
+                            <span>{{ $related->published_at->format('d/m/Y') }}</span>
+                        </div>
+                        <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; line-height: 1.4;">
+                            <a href="{{ route('news.show', $related->slug) }}" style="color: inherit; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#0066cc'" onmouseout="this.style.color=''">
+                                {{ Str::limit($related->title, 70) }}
                             </a>
                         </h3>
-                        <p class="text-sm text-gray-500">
-                            {{ $related->published_at->format('d/m/Y') }}
+                        @if($related->excerpt)
+                        <p style="color: var(--gray-600); font-size: 0.9375rem; line-height: 1.6;">
+                            {{ Str::limit($related->excerpt, 100) }}
                         </p>
+                        @endif
                     </div>
                 </article>
                 @endforeach
@@ -128,12 +187,12 @@
         if (navigator.share) {
             navigator.share({
                 title: '{{ $post->title }}',
+                text: '{{ $post->excerpt }}',
                 url: window.location.href
             });
         } else {
-            // Fallback: copy to clipboard
             navigator.clipboard.writeText(window.location.href);
-            alert('Đã copy link bài viết!');
+            alert('✅ Đã copy link bài viết vào clipboard!');
         }
     }
 </script>
