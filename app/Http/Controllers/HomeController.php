@@ -21,9 +21,29 @@ class HomeController extends Controller
                 ->withCount(['posts' => function ($query) {
                     $query->where('status', 'published');
                 }])
+                ->having('posts_count', '>', 0)
+                ->orderBy('name')
                 ->get();
 
-            return view('home', compact('featured_posts', 'categories'));
+            // Get posts grouped by category for tabs
+            $postsByCategory = [];
+            foreach ($categories as $category) {
+                $postsByCategory[$category->id] = Post::published()
+                    ->with(['category', 'user'])
+                    ->where('category_id', $category->id)
+                    ->latest()
+                    ->take(3)
+                    ->get();
+            }
+
+            // Get popular posts for sidebar
+            $popularPosts = Post::published()
+                ->with(['category'])
+                ->orderBy('views', 'desc')
+                ->take(5)
+                ->get();
+
+            return view('home', compact('featured_posts', 'categories', 'postsByCategory', 'popularPosts'));
             
         } catch (\Exception $e) {
             Log::error('Error in HomeController@index: ' . $e->getMessage());
@@ -31,8 +51,9 @@ class HomeController extends Controller
             // Fallback với dữ liệu trống
             $featured_posts = collect([]);
             $categories = collect([]);
+            $postsByCategory = [];
             
-            return view('home', compact('featured_posts', 'categories'))
+            return view('home', compact('featured_posts', 'categories', 'postsByCategory'))
                 ->with('error', 'Có lỗi xảy ra khi tải trang chủ');
         }
     }

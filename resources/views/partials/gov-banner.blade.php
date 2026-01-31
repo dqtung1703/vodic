@@ -2,7 +2,7 @@
 <div class="gov-banner">
     <div class="gov-banner-inner">
         <div class="flag-icon">🇻🇳</div>
-        <p>Cổng Thông tin Điện tử - Trung tâm Dữ liệu và Thông tin Đại dương Việt Nam</p>
+        <p>Cổng Thông tin Điện tử - Trung tâm Thông tin, dữ liệu biển và hải đảo quốc gia</p>
         <button class="gov-banner-toggle" onclick="toggleGovInfo()" aria-label="Xem thêm thông tin">
             <span>Xem thêm</span>
             <svg class="chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

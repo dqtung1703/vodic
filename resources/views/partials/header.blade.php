@@ -5,10 +5,10 @@
         <div class="header-container">
             <!-- Logo Section -->
             <a href="{{ route('home') }}" class="logo-wrapper">
-                <img src="{{ asset('images/vodic-logo.png') }}" alt="VODIC Logo" class="noaa-logo">
+                <img src="{{ asset('images/vodic_ico.gif') }}" alt="VODIC Logo" class="noaa-logo" style="max-width: 70px;">
                 <div class="logo-text">
-                    <span class="logo-title">Trung tâm Dữ liệu và Thông tin Đại dương Việt Nam</span>
-                    <span class="logo-subtitle">Vietnam Oceanic Data and Information Center</span>
+                    <span class="logo-title">Trung tâm Thông tin, dữ liệu biển và hải đảo quốc gia</span>
+                    <span class="logo-subtitle">Vietnam Ocean Data and Information Center</span>
                 </div>
             </a>
 

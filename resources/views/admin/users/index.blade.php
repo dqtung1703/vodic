@@ -71,105 +71,107 @@
 
         <!-- Users Table -->
         @if($users->count() > 0)
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên</th>
-                        <th>Email</th>
-                        <th>Vai trò</th>
-                        <th>Bài viết</th>
-                        <th>Trạng thái</th>
-                        <th>Ngày tạo</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr>
-                        <td><strong>#{{ $user->id }}</strong></td>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0066cc, #003d82); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
-                                    {{ strtoupper(substr($user->name, 0, 1)) }}
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -2rem; padding: 0 2rem;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Vai trò</th>
+                            <th>Bài viết</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                        <tr>
+                            <td><strong>#{{ $user->id }}</strong></td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0066cc, #003d82); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0;">
+                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    </div>
+                                    <div style="min-width: 0;">
+                                        <strong>{{ $user->name }}</strong>
+                                        @if($user->id === auth()->id())
+                                            <span style="color: #0066cc; font-size: 0.75rem;">(Bạn)</span>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div>
-                                    <strong>{{ $user->name }}</strong>
-                                    @if($user->id === auth()->id())
-                                        <span style="color: #0066cc; font-size: 0.75rem;">(Bạn)</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            @if($user->is_admin)
-                                <span class="status-badge" style="background: #fef3c7; color: #92400e; white-space: nowrap;">
-                                    <span style="display: inline-block;">👑</span> <span style="display: inline-block;">Admin</span>
-                                </span>
-                            @else
-                                <span class="status-badge" style="background: #e0e7ff; color: #3730a3; white-space: nowrap;">
-                                    <span style="display: inline-block;">👤</span> <span style="display: inline-block;">User</span>
-                                </span>
-                            @endif
-                        </td>
-                        <td>
-                            <strong>{{ $user->posts_count }}</strong> bài viết
-                        </td>
-                        <td>
-                            @if($user->is_locked)
-                                <span class="status-badge" style="background: #fee2e2; color: #991b1b; white-space: nowrap;">
-                                    <span style="display: inline-block;">🔒</span> <span style="display: inline-block;">Đã khóa</span>
-                                </span>
-                            @else
-                                <span class="status-badge status-published" style="white-space: nowrap;">
-                                    <span style="display: inline-block;">✅</span> <span style="display: inline-block;">Hoạt động</span>
-                                </span>
-                            @endif
-                        </td>
-                        <td>{{ $user->created_at->format('d/m/Y') }}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{{ route('admin.users.edit', $user) }}" class="action-btn action-edit">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path>
-                                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                    </svg>
-                                    Sửa
-                                </a>
-
-                                @if($user->id !== auth()->id())
-                                    @if($user->is_locked)
-                                        <form action="{{ route('admin.users.unlock', $user) }}" method="POST" style="display: inline;">
-                                            @csrf
-                                            <button type="submit" class="action-btn" style="background: #d1fae5; color: #065f46;">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                    <path d="M7 11V7a5 5 0 0110 0v4"></path>
-                                                </svg>
-                                                Mở khóa
-                                            </button>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('admin.users.lock', $user) }}" method="POST" style="display: inline;">
-                                            @csrf
-                                            <button type="submit" class="action-btn" style="background: #fef3c7; color: #92400e;" 
-                                                    onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                    <path d="M7 11V7a5 5 0 019.9-1"></path>
-                                                </svg>
-                                                Khóa
-                                            </button>
-                                        </form>
-                                    @endif
+                            </td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                @if($user->is_admin)
+                                    <span class="status-badge" style="background: #fef3c7; color: #92400e; white-space: nowrap;">
+                                        <span style="display: inline-block;">👑</span> <span style="display: inline-block;">Admin</span>
+                                    </span>
+                                @else
+                                    <span class="status-badge" style="background: #e0e7ff; color: #3730a3; white-space: nowrap;">
+                                        <span style="display: inline-block;">👤</span> <span style="display: inline-block;">User</span>
+                                    </span>
                                 @endif
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </td>
+                            <td style="white-space: nowrap;">
+                                <strong>{{ $user->posts_count }}</strong> bài viết
+                            </td>
+                            <td>
+                                @if($user->is_locked)
+                                    <span class="status-badge" style="background: #fee2e2; color: #991b1b; white-space: nowrap;">
+                                        <span style="display: inline-block;">🔒</span> <span style="display: inline-block;">Đã khóa</span>
+                                    </span>
+                                @else
+                                    <span class="status-badge status-published" style="white-space: nowrap;">
+                                        <span style="display: inline-block;">✅</span> <span style="display: inline-block;">Hoạt động</span>
+                                    </span>
+                                @endif
+                            </td>
+                            <td style="white-space: nowrap;">{{ $user->created_at->format('d/m/Y') }}</td>
+                            <td>
+                                <div class="action-buttons" style="white-space: nowrap;">
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="action-btn action-edit">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                        Sửa
+                                    </a>
+
+                                    @if($user->id !== auth()->id())
+                                        @if($user->is_locked)
+                                            <form action="{{ route('admin.users.unlock', $user) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="action-btn" style="background: #d1fae5; color: #065f46;">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                        <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                                                    </svg>
+                                                    Mở khóa
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('admin.users.lock', $user) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="action-btn" style="background: #fef3c7; color: #92400e;" 
+                                                        onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                        <path d="M7 11V7a5 5 0 019.9-1"></path>
+                                                    </svg>
+                                                    Khóa
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Pagination -->
             <div style="margin-top: 1.5rem;">

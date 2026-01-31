@@ -14,6 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id',
         'is_admin',
         'is_locked',
     ];
@@ -48,5 +49,13 @@ class User extends Authenticatable
     public function isLocked(): bool
     {
         return $this->is_locked;
+    }
+
+    /**
+     * Send the password reset notification.
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new \App\Notifications\ResetPassword($token));
     }
 }

@@ -19,10 +19,10 @@
     <div style="padding: 1.5rem 2rem;">
         <!-- Filters -->
         <form method="GET" class="filters-container">
-            <select name="category" class="filter-select" onchange="this.form.submit()">
+            <select name="category_id" class="filter-select" onchange="this.form.submit()">
                 <option value="">Tất cả danh mục</option>
                 @foreach($categories as $cat)
-                    <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                    <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
                         {{ $cat->name }}
                     </option>
                 @endforeach

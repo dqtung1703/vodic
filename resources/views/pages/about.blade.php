@@ -11,7 +11,7 @@
             Về VODIC
         </h1>
         <p style="font-size: 1.25rem; opacity: 0.95; max-width: 700px; margin: 0 auto;">
-            Trung tâm Dữ liệu và Thông tin Đại dương Việt Nam
+            Trung tâm Thông tin, dữ liệu biển và hải đảo quốc gia
         </p>
     </div>
 </section>

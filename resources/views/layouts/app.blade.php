@@ -15,6 +15,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+    
+    @stack('styles')
 </head>
 <body>
     @include('partials.gov-banner')
@@ -31,5 +33,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/main.js') }}" defer></script>
     <script src="{{ asset('js/enhancements.js') }}" defer></script>
+    
+    @stack('scripts')
 </body>
 </html>

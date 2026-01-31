@@ -60,6 +60,13 @@ class PostController extends Controller
             ->take(3)
             ->get();
 
-        return view('news.show', compact('post', 'relatedPosts'));
+        // Get popular posts (most viewed)
+        $popularPosts = Post::with(['category', 'images'])
+            ->published()
+            ->orderBy('views', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('news.show', compact('post', 'relatedPosts', 'popularPosts'));
     }
 }

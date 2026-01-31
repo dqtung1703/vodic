@@ -113,7 +113,7 @@
                             <div>
                                 <h3 style="font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">Địa chỉ</h3>
                                 <p style="color: var(--gray-600); line-height: 1.6;">
-                                    83 Nguyễn Chí Thanh, Đống Đa, Hà Nội, Việt Nam
+                                    Số 83 Nguyễn Chí Thanh, Quận Đống Đa, Thành phố Hà Nội, Việt Nam
                                 </p>
                             </div>
                         </div>
@@ -127,8 +127,8 @@
                             <div>
                                 <h3 style="font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">Điện thoại</h3>
                                 <p style="color: var(--gray-600);">
-                                    <a href="tel:+842437687844" style="color: #0066cc; font-weight: 600;">
-                                        (+84) 24 3768 7844
+                                    <a href="tel:+842437618118" style="color: #0066cc; font-weight: 600;">
+                                        +84 24 3761 8118
                                     </a>
                                 </p>
                             </div>
@@ -144,8 +144,8 @@
                             <div>
                                 <h3 style="font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">Email</h3>
                                 <p style="color: var(--gray-600);">
-                                    <a href="mailto:vodic@vea.gov.vn" style="color: #0066cc; font-weight: 600;">
-                                        vodic@vea.gov.vn
+                                    <a href="mailto:vohung@vodic.vn" style="color: #0066cc; font-weight: 600;">
+                                        vohung@vodic.vn
                                     </a>
                                 </p>
                             </div>
