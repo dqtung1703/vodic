@@ -15,6 +15,7 @@ class User extends Authenticatable
         'email',
         'password',
         'google_id',
+        'avatar',
         'is_admin',
         'is_locked',
     ];
@@ -40,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     // Helper methods
     public function isAdmin(): bool
     {
@@ -49,6 +55,27 @@ class User extends Authenticatable
     public function isLocked(): bool
     {
         return $this->is_locked;
+    }
+
+    public function hasAvatar(): bool
+    {
+        return !empty($this->avatar);
+    }
+
+    public function getAvatarUrl(): string
+    {
+        if ($this->hasAvatar()) {
+            return asset('storage/' . $this->avatar);
+        }
+        return '';
+    }
+
+    public function getAvatarOrInitial(): string
+    {
+        if ($this->hasAvatar()) {
+            return $this->getAvatarUrl();
+        }
+        return strtoupper(substr($this->name, 0, 1));
     }
 
     /**

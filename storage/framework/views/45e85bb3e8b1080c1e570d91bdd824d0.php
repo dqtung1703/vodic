@@ -1,18 +1,18 @@
-@extends('admin.admin')
 
-@section('title', 'Chỉnh sửa Bài viết')
-@section('page-title', 'Chỉnh sửa Bài viết')
 
-@section('content')
+<?php $__env->startSection('title', 'Chỉnh sửa Bài viết'); ?>
+<?php $__env->startSection('page-title', 'Chỉnh sửa Bài viết'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="form-container">
     <div class="form-card">
         <div class="form-header">
             <h2>✏️ Chỉnh sửa Bài viết</h2>
         </div>
 
-        <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+        <form action="<?php echo e(route('admin.posts.update', $post)); ?>" method="POST" enctype="multipart/form-data">
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('PUT'); ?>
             
             <div class="form-body">
                 <div class="form-grid">
@@ -22,30 +22,72 @@
                             <label for="title" class="form-label">
                                 Tiêu đề bài viết <span class="required">*</span>
                             </label>
-                            <input type="text" name="title" id="title" value="{{ old('title', $post->title) }}" 
-                                class="form-input @error('title') error @enderror" required>
-                            @error('title')
-                                <span class="form-error">{{ $message }}</span>
-                            @enderror
+                            <input type="text" name="title" id="title" value="<?php echo e(old('title', $post->title)); ?>" 
+                                class="form-input <?php $__errorArgs = ['title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" required>
+                            <?php $__errorArgs = ['title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="form-error"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="form-group">
                             <label for="slug" class="form-label">Slug (URL thân thiện)</label>
-                            <input type="text" name="slug" id="slug" value="{{ old('slug', $post->slug) }}" 
-                                class="form-input @error('slug') error @enderror">
-                            <span class="form-hint">URL hiện tại: <strong>{{ $post->slug }}</strong></span>
-                            @error('slug')
-                                <span class="form-error">{{ $message }}</span>
-                            @enderror
+                            <input type="text" name="slug" id="slug" value="<?php echo e(old('slug', $post->slug)); ?>" 
+                                class="form-input <?php $__errorArgs = ['slug'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                            <span class="form-hint">URL hiện tại: <strong><?php echo e($post->slug); ?></strong></span>
+                            <?php $__errorArgs = ['slug'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="form-error"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="form-group">
                             <label for="excerpt" class="form-label">Tóm tắt</label>
                             <textarea name="excerpt" id="excerpt" rows="3" 
-                                class="form-textarea @error('excerpt') error @enderror">{{ old('excerpt', $post->excerpt) }}</textarea>
-                            @error('excerpt')
-                                <span class="form-error">{{ $message }}</span>
-                            @enderror
+                                class="form-textarea <?php $__errorArgs = ['excerpt'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"><?php echo e(old('excerpt', $post->excerpt)); ?></textarea>
+                            <?php $__errorArgs = ['excerpt'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="form-error"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="form-group">
@@ -53,54 +95,82 @@
                                 Nội dung <span class="required">*</span>
                             </label>
                             <textarea name="content" id="content" rows="15" 
-                                class="form-textarea @error('content') error @enderror" required>{{ old('content', $post->content) }}</textarea>
-                            @error('content')
-                                <span class="form-error">{{ $message }}</span>
-                            @enderror
+                                class="form-textarea <?php $__errorArgs = ['content'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" required><?php echo e(old('content', $post->content)); ?></textarea>
+                            <?php $__errorArgs = ['content'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="form-error"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <!-- Current Featured Image -->
-                        @if($post->featured_image)
+                        <?php if($post->featured_image): ?>
                         <div class="form-group">
                             <label class="form-label">Ảnh đại diện hiện tại</label>
                             <div class="image-preview">
                                 <div class="preview-item" id="current-featured">
-                                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="Featured Image">
+                                    <img src="<?php echo e(asset('storage/' . $post->featured_image)); ?>" alt="Featured Image">
                                     <button type="button" onclick="removeFeaturedImage()" class="preview-remove">×</button>
                                 </div>
                             </div>
                             <input type="hidden" name="remove_featured_image" id="remove_featured_image" value="0">
                         </div>
-                        @endif
+                        <?php endif; ?>
 
                         <!-- Upload New Featured Image -->
                         <div class="form-group">
                             <label for="featured_image" class="form-label">
-                                @if($post->featured_image) Thay đổi ảnh đại diện @else Ảnh đại diện @endif
+                                <?php if($post->featured_image): ?> Thay đổi ảnh đại diện <?php else: ?> Ảnh đại diện <?php endif; ?>
                             </label>
                             <input type="file" name="featured_image" id="featured_image" accept="image/*"
-                                class="form-input @error('featured_image') error @enderror">
+                                class="form-input <?php $__errorArgs = ['featured_image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
                             <span class="form-hint">Upload ảnh mới để thay thế</span>
-                            @error('featured_image')
-                                <span class="form-error">{{ $message }}</span>
-                            @enderror
+                            <?php $__errorArgs = ['featured_image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="form-error"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             <div id="featuredPreview" class="image-preview"></div>
                         </div>
 
                         <!-- Existing Gallery Images -->
-                        @if($post->images->count() > 0)
+                        <?php if($post->images->count() > 0): ?>
                         <div class="form-group">
-                            <label class="form-label">Hình ảnh bổ sung ({{ $post->images->count() }})</label>
+                            <label class="form-label">Hình ảnh bổ sung (<?php echo e($post->images->count()); ?>)</label>
                             <div class="image-preview">
-                                @foreach($post->images as $image)
-                                <div class="preview-item" id="image-{{ $image->id }}">
-                                    <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image {{ $loop->iteration }}">
-                                    <button type="button" onclick="deleteImage({{ $image->id }})" class="preview-remove">×</button>
+                                <?php $__currentLoopData = $post->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="preview-item" id="image-<?php echo e($image->id); ?>">
+                                    <img src="<?php echo e(asset('storage/' . $image->image_path)); ?>" alt="Image <?php echo e($loop->iteration); ?>">
+                                    <button type="button" onclick="deleteImage(<?php echo e($image->id); ?>)" class="preview-remove">×</button>
                                 </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
-                        @endif
+                        <?php endif; ?>
 
                         <!-- Add New Gallery Images -->
                         <div class="form-group">
@@ -123,20 +193,34 @@
                                         Trạng thái <span class="required">*</span>
                                     </label>
                                     <select name="status" id="status" 
-                                        class="form-select @error('status') error @enderror" required>
-                                        <option value="draft" {{ old('status', $post->status) == 'draft' ? 'selected' : '' }}>
+                                        class="form-select <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" required>
+                                        <option value="draft" <?php echo e(old('status', $post->status) == 'draft' ? 'selected' : ''); ?>>
                                             📝 Bản nháp
                                         </option>
-                                        <option value="published" {{ old('status', $post->status) == 'published' ? 'selected' : '' }}>
+                                        <option value="published" <?php echo e(old('status', $post->status) == 'published' ? 'selected' : ''); ?>>
                                             ✅ Xuất bản
                                         </option>
-                                        <option value="archived" {{ old('status', $post->status) == 'archived' ? 'selected' : '' }}>
+                                        <option value="archived" <?php echo e(old('status', $post->status) == 'archived' ? 'selected' : ''); ?>>
                                             📦 Lưu trữ
                                         </option>
                                     </select>
-                                    @error('status')
-                                        <span class="form-error">{{ $message }}</span>
-                                    @enderror
+                                    <?php $__errorArgs = ['status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="form-error"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="form-group">
@@ -144,30 +228,45 @@
                                         Danh mục <span class="required">*</span>
                                     </label>
                                     <select name="category_id" id="category_id" 
-                                        class="form-select @error('category_id') error @enderror" required>
+                                        class="form-select <?php $__errorArgs = ['category_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> error <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" required>
                                         <option value="">Chọn danh mục</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
-                                                {{ $category->name }}
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id', $post->category_id) == $category->id ? 'selected' : ''); ?>>
+                                                <?php echo e($category->name); ?>
+
                                             </option>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-                                    @error('category_id')
-                                        <span class="form-error">{{ $message }}</span>
-                                    @enderror
+                                    <?php $__errorArgs = ['category_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="form-error"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="published_at" class="form-label">Ngày xuất bản</label>
                                     <input type="datetime-local" name="published_at" id="published_at" 
-                                        value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : '') }}"
+                                        value="<?php echo e(old('published_at', $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : '')); ?>"
                                         class="form-input">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="is_important" value="1" 
-                                            {{ old('is_important', $post->is_important) ? 'checked' : '' }}>
+                                            <?php echo e(old('is_important', $post->is_important) ? 'checked' : ''); ?>>
                                         <span>⭐ Đánh dấu là tin quan trọng</span>
                                     </label>
                                     <span class="form-hint">Tin quan trọng sẽ hiển thị ở widget riêng trên trang chủ</span>
@@ -177,12 +276,12 @@
                             <div class="sidebar-section">
                                 <h3 class="sidebar-title">📊 Thống kê</h3>
                                 <div style="font-size: 0.875rem; color: #6b7280; line-height: 1.8;">
-                                    <p><strong>👁️ Lượt xem:</strong> {{ number_format($post->views) }}</p>
-                                    <p><strong>📅 Tạo:</strong> {{ $post->created_at->format('d/m/Y H:i') }}</p>
-                                    <p><strong>🔄 Cập nhật:</strong> {{ $post->updated_at->format('d/m/Y H:i') }}</p>
-                                    @if($post->user)
-                                    <p><strong>👤 Tác giả:</strong> {{ $post->user->name }}</p>
-                                    @endif
+                                    <p><strong>👁️ Lượt xem:</strong> <?php echo e(number_format($post->views)); ?></p>
+                                    <p><strong>📅 Tạo:</strong> <?php echo e($post->created_at->format('d/m/Y H:i')); ?></p>
+                                    <p><strong>🔄 Cập nhật:</strong> <?php echo e($post->updated_at->format('d/m/Y H:i')); ?></p>
+                                    <?php if($post->user): ?>
+                                    <p><strong>👤 Tác giả:</strong> <?php echo e($post->user->name); ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -195,7 +294,7 @@
                                     </svg>
                                     Cập nhật
                                 </button>
-                                <a href="{{ route('admin.posts.index') }}" class="btn-form-secondary">
+                                <a href="<?php echo e(route('admin.posts.index')); ?>" class="btn-form-secondary">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -204,7 +303,7 @@
                                 </a>
                             </div>
 
-                            <a href="{{ route('news.show', $post->slug) }}" target="_blank" 
+                            <a href="<?php echo e(route('news.show', $post->slug)); ?>" target="_blank" 
                                class="btn-form-primary" style="background: #10b981; margin-top: 0.75rem;">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -220,7 +319,7 @@
     </div>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     // Auto-generate slug from title
     document.getElementById('title').addEventListener('input', function(e) {
@@ -245,10 +344,10 @@
     function deleteImage(imageId) {
         if (!confirm('Bạn có chắc muốn xóa hình ảnh này?')) return;
 
-        fetch(`{{ url('admin/posts/images') }}/${imageId}`, {
+        fetch(`<?php echo e(url('admin/posts/images')); ?>/${imageId}`, {
             method: 'DELETE',
             headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>',
                 'Accept': 'application/json'
             }
         })
@@ -318,5 +417,6 @@
         });
     });
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\2251172552_Tung\vodic\resources\views/admin/posts/edit.blade.php ENDPATH**/ ?>

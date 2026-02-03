@@ -21,11 +21,13 @@ class Post extends Model
         'status',
         'published_at',
         'views',
+        'is_important',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
         'views' => 'integer',
+        'is_important' => 'boolean',
     ];
 
     // Auto-generate slug from title
@@ -65,6 +67,11 @@ class Post extends Model
         return $this->hasMany(PostImage::class)->orderBy('order');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
+    }
+
     // Scopes
     public function scopePublished($query)
     {
@@ -95,5 +102,14 @@ class Post extends Model
         return $this->status === 'published' 
             && $this->published_at 
             && $this->published_at->isPast();
+    }
+
+    public function scopeImportant($query)
+    {
+        return $query->where('is_important', true)
+                     ->where('status', 'published')
+                     ->whereNotNull('published_at')
+                     ->where('published_at', '<=', now())
+                     ->orderBy('published_at', 'desc');
     }
 }

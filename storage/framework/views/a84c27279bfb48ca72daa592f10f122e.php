@@ -258,6 +258,45 @@
             
             <!-- Sidebar - Popular Posts -->
             <aside class="news-sidebar">
+                <!-- Important News Widget -->
+                <?php if(isset($importantPosts) && $importantPosts->count() > 0): ?>
+                <div class="important-widget">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        Tin tức quan trọng
+                    </h3>
+                    <?php $__currentLoopData = $importantPosts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $important): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="important-item">
+                        <div class="important-number"><?php echo e($index + 1); ?></div>
+                        <div class="important-content">
+                            <div class="important-title">
+                                <a href="<?php echo e(route('news.show', $important->slug)); ?>">
+                                    <?php echo e($important->title); ?>
+
+                                </a>
+                            </div>
+                            <div class="important-meta">
+                                <span class="important-category"><?php echo e($important->category->name); ?></span>
+                                <span class="important-date">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    <?php echo e($important->published_at->format('d/m/Y')); ?>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+                <?php endif; ?>
+
+                <!-- Popular Posts Widget -->
                 <?php if(isset($popularPosts) && $popularPosts->count() > 0): ?>
                 <div class="popular-widget">
                     <h3>Xem nhiều nhất</h3>
@@ -287,6 +326,28 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
                 <?php endif; ?>
+                
+                <!-- Windy Weather Map Widget -->
+                <div class="weather-widget">
+                    <h3>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                            <circle cx="12" cy="12" r="5"/>
+                        </svg>
+                        Bản đồ thời tiết
+                    </h3>
+                    <div class="windy-iframe-wrapper">
+                        <iframe 
+                            width="100%" 
+                            height="450" 
+                            src="https://embed.windy.com/embed2.html?lat=15.572&lon=106.601&detailLat=15.572&detailLon=106.601&width=650&height=450&zoom=5&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" 
+                            frameborder="0">
+                        </iframe>
+                    </div>
+                    <p style="font-size: 12px; color: #666; margin-top: 0.75rem; text-align: center;">
+                        Nguồn: <a href="https://www.windy.com" target="_blank" style="color: #0066cc; text-decoration: none;">Windy.com</a>
+                    </p>
+                </div>
             </aside>
         </div><!-- .news-layout -->
         
@@ -389,8 +450,6 @@
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 2rem;
 }
 
 .popular-widget h3 {
@@ -478,6 +537,104 @@
     gap: 0.25rem;
 }
 
+/* Important News Widget */
+.important-widget {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #dc2626;
+}
+
+.important-widget h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem 0;
+    color: #1a1a1a;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #dc2626;
+    display: flex;
+    align-items: center;
+}
+
+.important-item {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.important-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.important-number {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.important-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.important-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.important-title a {
+    color: #1a1a1a;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s;
+}
+
+.important-title a:hover {
+    color: #dc2626;
+}
+
+.important-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 12px;
+    color: #666;
+}
+
+.important-category {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.important-date {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+
 /* Responsive */
 @media (max-width: 968px) {
     .news-layout {
@@ -493,6 +650,40 @@
         position: static;
     }
 }
+
+/* Weather Widget */
+.weather-widget {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-top: 1.5rem;
+}
+
+.weather-widget h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem 0;
+    color: #1a1a1a;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #0066cc;
+    display: flex;
+    align-items: center;
+}
+
+.windy-iframe-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.windy-iframe-wrapper iframe {
+    display: block;
+    border: none;
+}
+
 
 /* Hero Slider Styles */
 .hero-slider {

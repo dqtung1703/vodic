@@ -22,6 +22,7 @@ Route::get('/tim-kiem', [PostController::class, 'index'])->name('search');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/avatar', [\App\Http\Controllers\ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
     
     Route::prefix('my-posts')->name('user.posts.')->group(function () {
         Route::get('/', [\App\Http\Controllers\UserPostController::class, 'index'])->name('index');
@@ -31,6 +32,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/{post}', [\App\Http\Controllers\UserPostController::class, 'update'])->name('update');
         Route::delete('/{post}', [\App\Http\Controllers\UserPostController::class, 'destroy'])->name('destroy');
     });
+    
+    // Comment Routes
+    Route::post('/posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 // Admin Routes - SỬA middleware từ ['auth', 'admin'] thành 'admin' vì admin middleware đã include auth

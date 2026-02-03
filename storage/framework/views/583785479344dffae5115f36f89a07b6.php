@@ -3,8 +3,7 @@
     <div class="footer-main">
         <div class="footer-container">
             <div class="footer-brand">
-                <img src="<?php echo e(asset('images/noaa-logo-white.png')); ?>" alt="VODIC Logo" class="footer-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--gov-red), #b91d16); border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 2.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">⚓</div>
+                <img src="<?php echo e(asset('images/vodic_ico.gif')); ?>" alt="VODIC Logo" class="footer-logo" style="max-width: 80px;">
                 <div class="footer-brand-text">
                     <span class="footer-title">Trung tâm Thông tin, dữ liệu biển và hải đảo quốc gia</span>
                     <span class="footer-subtitle">Vietnam Ocean Data and Information Center</span>

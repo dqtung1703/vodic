@@ -54,10 +54,12 @@ class PostController extends Controller
             'published_at' => 'nullable|date',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_important' => 'nullable|boolean',
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);
         $validated['user_id'] = auth()->id();
+        $validated['is_important'] = $request->has('is_important') ? true : false;
 
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $request->file('featured_image')
@@ -110,9 +112,11 @@ class PostController extends Controller
             'published_at' => 'nullable|date',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_important' => 'nullable|boolean',
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);
+        $validated['is_important'] = $request->has('is_important') ? true : false;
 
         if ($request->hasFile('featured_image')) {
             if ($post->featured_image) {

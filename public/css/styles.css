@@ -695,6 +695,14 @@ img {
     font-size: 0.875rem;
 }
 
+.user-avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
 .user-name {
     font-weight: 600;
     color: var(--text-primary);

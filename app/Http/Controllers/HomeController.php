@@ -43,7 +43,13 @@ class HomeController extends Controller
                 ->take(5)
                 ->get();
 
-            return view('home', compact('featured_posts', 'categories', 'postsByCategory', 'popularPosts'));
+            // Get important posts for sidebar
+            $importantPosts = Post::important()
+                ->with(['category'])
+                ->take(5)
+                ->get();
+
+            return view('home', compact('featured_posts', 'categories', 'postsByCategory', 'popularPosts', 'importantPosts'));
             
         } catch (\Exception $e) {
             Log::error('Error in HomeController@index: ' . $e->getMessage());

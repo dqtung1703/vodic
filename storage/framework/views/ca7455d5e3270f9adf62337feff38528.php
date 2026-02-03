@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', $post->title . ' - VODIC')
 
-@push('styles')
+<?php $__env->startSection('title', $post->title . ' - VODIC'); ?>
+
+<?php $__env->startPush('styles'); ?>
 <style>
 /* Article Page Styling */
 .article-page {
@@ -902,27 +902,27 @@
     flex-shrink: 0;
 }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="article-page">
     <div class="article-container">
         <!-- Breadcrumb -->
         <nav class="article-breadcrumb">
-            <a href="{{ route('home') }}">Trang chủ</a>
+            <a href="<?php echo e(route('home')); ?>">Trang chủ</a>
             <span>/</span>
-            <a href="{{ route('news.index') }}">Tin tức</a>
+            <a href="<?php echo e(route('news.index')); ?>">Tin tức</a>
             <span>/</span>
-            <a href="{{ route('categories.show', $post->category->slug) }}">{{ $post->category->name }}</a>
+            <a href="<?php echo e(route('categories.show', $post->category->slug)); ?>"><?php echo e($post->category->name); ?></a>
         </nav>
 
         <!-- Category -->
         <div>
-            <span class="article-category">{{ $post->category->name }}</span>
+            <span class="article-category"><?php echo e($post->category->name); ?></span>
         </div>
 
         <!-- Title -->
-        <h1 class="article-title">{{ $post->title }}</h1>
+        <h1 class="article-title"><?php echo e($post->title); ?></h1>
 
         <!-- Meta Info -->
         <div class="article-meta">
@@ -933,24 +933,26 @@
                     <line x1="8" y1="2" x2="8" y2="6"/>
                     <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                {{ $post->published_at->format('d/m/Y') }}
+                <?php echo e($post->published_at->format('d/m/Y')); ?>
+
             </div>
             <div class="meta-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                     <circle cx="12" cy="12" r="3"/>
                 </svg>
-                {{ number_format($post->views) }} lượt xem
+                <?php echo e(number_format($post->views)); ?> lượt xem
             </div>
-            @if($post->user)
+            <?php if($post->user): ?>
             <div class="meta-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
                     <circle cx="12" cy="7" r="4"/>
                 </svg>
-                {{ $post->user->name }}
+                <?php echo e($post->user->name); ?>
+
             </div>
-            @endif
+            <?php endif; ?>
         </div>
 
         <!-- Two Column Layout -->
@@ -960,60 +962,63 @@
         <article class="article-content-card">
             
             <!-- Excerpt -->
-            @if($post->excerpt)
+            <?php if($post->excerpt): ?>
             <div class="article-excerpt">
-                {{ $post->excerpt }}
+                <?php echo e($post->excerpt); ?>
+
             </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Featured Image -->
-            @if($post->featured_image)
+            <?php if($post->featured_image): ?>
             <figure class="article-featured-image">
-                <img src="{{ asset('storage/' . $post->featured_image) }}" 
-                     alt="{{ $post->title }}"
+                <img src="<?php echo e(asset('storage/' . $post->featured_image)); ?>" 
+                     alt="<?php echo e($post->title); ?>"
                      loading="lazy">
             </figure>
-            @endif
+            <?php endif; ?>
 
             <!-- Content -->
             <div class="article-content">
-                {!! $post->content !!}
+                <?php echo $post->content; ?>
+
             </div>
 
             <!-- Additional Images -->
-            @if($post->images->count() > 0)
+            <?php if($post->images->count() > 0): ?>
             <div class="article-gallery">
                 <h3>Hình ảnh liên quan</h3>
                 <div class="gallery-grid">
-                    @foreach($post->images as $image)
+                    <?php $__currentLoopData = $post->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="gallery-item">
-                        <img src="{{ asset('storage/' . $image->image_path) }}" 
-                             alt="Image {{ $loop->iteration }}">
+                        <img src="<?php echo e(asset('storage/' . $image->image_path)); ?>" 
+                             alt="Image <?php echo e($loop->iteration); ?>">
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Tags -->
-            @if($post->tags && $post->tags->count() > 0)
+            <?php if($post->tags && $post->tags->count() > 0): ?>
             <div class="article-tags">
                 <div class="tags-list">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #999;">
                         <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
                         <line x1="7" y1="7" x2="7.01" y2="7"/>
                     </svg>
-                    @foreach($post->tags as $tag)
-                    <a href="#" class="tag-item">{{ $tag->name }}</a>
-                    @endforeach
+                    <?php $__currentLoopData = $post->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="#" class="tag-item"><?php echo e($tag->name); ?></a>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Footer -->
             <div class="article-footer">
                 <div class="article-updated">
-                    Cập nhật: {{ $post->updated_at->format('d/m/Y H:i') }}
+                    Cập nhật: <?php echo e($post->updated_at->format('d/m/Y H:i')); ?>
+
                 </div>
                 <div class="article-actions">
                     <button onclick="window.print()" class="action-btn btn-secondary">
@@ -1038,17 +1043,18 @@
             </div>
 
             <!-- Author Box -->
-            @if($post->user)
+            <?php if($post->user): ?>
             <div class="author-box">
                 <div class="author-avatar">
-                    {{ strtoupper(substr($post->user->name, 0, 1)) }}
+                    <?php echo e(strtoupper(substr($post->user->name, 0, 1))); ?>
+
                 </div>
                 <div class="author-info">
-                    <div class="author-name">{{ $post->user->name }}</div>
+                    <div class="author-name"><?php echo e($post->user->name); ?></div>
                     <div class="author-role">Tác giả</div>
                 </div>
             </div>
-            @endif
+            <?php endif; ?>
 
             <!-- Comments Section -->
             <div class="comments-section">
@@ -1056,23 +1062,24 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
                     </svg>
-                    Bình luận ({{ $post->comments->count() }})
+                    Bình luận (<?php echo e($post->comments->count()); ?>)
                 </h3>
 
                 <!-- Comment Form -->
-                @auth
+                <?php if(auth()->guard()->check()): ?>
                 <div class="comment-form-wrapper">
-                    <form action="{{ route('comments.store', $post) }}" method="POST" class="comment-form">
-                        @csrf
+                    <form action="<?php echo e(route('comments.store', $post)); ?>" method="POST" class="comment-form">
+                        <?php echo csrf_field(); ?>
                         <div class="comment-form-header">
-                            @if(auth()->user()->hasAvatar())
-                                <img src="{{ auth()->user()->getAvatarUrl() }}" alt="Avatar" class="comment-user-avatar-img">
-                            @else
+                            <?php if(auth()->user()->hasAvatar()): ?>
+                                <img src="<?php echo e(auth()->user()->getAvatarUrl()); ?>" alt="Avatar" class="comment-user-avatar-img">
+                            <?php else: ?>
                                 <div class="comment-user-avatar">
-                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                    <?php echo e(strtoupper(substr(auth()->user()->name, 0, 1))); ?>
+
                                 </div>
-                            @endif
-                            <div class="comment-user-name">{{ auth()->user()->name }}</div>
+                            <?php endif; ?>
+                            <div class="comment-user-name"><?php echo e(auth()->user()->name); ?></div>
                         </div>
                         <div class="comment-form-body">
                             <textarea 
@@ -1082,10 +1089,17 @@
                                 rows="3"
                                 required
                                 maxlength="1000"
-                            >{{ old('content') }}</textarea>
-                            @error('content')
-                                <span class="comment-error">{{ $message }}</span>
-                            @enderror
+                            ><?php echo e(old('content')); ?></textarea>
+                            <?php $__errorArgs = ['content'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="comment-error"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="comment-form-footer">
                             <span class="comment-hint">Tối đa 1000 ký tự</span>
@@ -1099,7 +1113,7 @@
                         </div>
                     </form>
                 </div>
-                @else
+                <?php else: ?>
                 <div class="comment-login-prompt">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
@@ -1107,31 +1121,32 @@
                     </svg>
                     <p>Vui lòng <a href="#" onclick="event.preventDefault(); document.getElementById('login-modal').style.display='flex';">đăng nhập</a> để bình luận</p>
                 </div>
-                @endauth
+                <?php endif; ?>
 
                 <!-- Comments List -->
-                @if($post->comments->count() > 0)
+                <?php if($post->comments->count() > 0): ?>
                 <div class="comments-list">
-                    @foreach($post->comments as $comment)
+                    <?php $__currentLoopData = $post->comments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="comment-item">
-                        @if($comment->user->hasAvatar())
-                            <img src="{{ $comment->user->getAvatarUrl() }}" alt="Avatar" class="comment-avatar-img">
-                        @else
+                        <?php if($comment->user->hasAvatar()): ?>
+                            <img src="<?php echo e($comment->user->getAvatarUrl()); ?>" alt="Avatar" class="comment-avatar-img">
+                        <?php else: ?>
                             <div class="comment-avatar">
-                                {{ strtoupper(substr($comment->user->name, 0, 1)) }}
+                                <?php echo e(strtoupper(substr($comment->user->name, 0, 1))); ?>
+
                             </div>
-                        @endif
+                        <?php endif; ?>
                         <div class="comment-content-wrapper">
                             <div class="comment-header">
                                 <div class="comment-user-info">
-                                    <span class="comment-user-name">{{ $comment->user->name }}</span>
-                                    <span class="comment-time">{{ $comment->created_at->diffForHumans() }}</span>
+                                    <span class="comment-user-name"><?php echo e($comment->user->name); ?></span>
+                                    <span class="comment-time"><?php echo e($comment->created_at->diffForHumans()); ?></span>
                                 </div>
-                                @auth
-                                    @if(auth()->user()->isAdmin() || auth()->id() === $comment->user_id)
-                                    <form action="{{ route('comments.destroy', $comment) }}" method="POST" class="comment-delete-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bình luận này?')">
-                                        @csrf
-                                        @method('DELETE')
+                                <?php if(auth()->guard()->check()): ?>
+                                    <?php if(auth()->user()->isAdmin() || auth()->id() === $comment->user_id): ?>
+                                    <form action="<?php echo e(route('comments.destroy', $comment)); ?>" method="POST" class="comment-delete-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bình luận này?')">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="comment-delete-btn" title="Xóa bình luận">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <polyline points="3 6 5 6 21 6"/>
@@ -1141,105 +1156,109 @@
                                             </svg>
                                         </button>
                                     </form>
-                                    @endif
-                                @endauth
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
-                            <div class="comment-text">{{ $comment->content }}</div>
+                            <div class="comment-text"><?php echo e($comment->content); ?></div>
                         </div>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                @else
+                <?php else: ?>
                 <div class="comments-empty">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
                     </svg>
                     <p>Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
         </article>
             </div><!-- .article-main -->
 
             <!-- Sidebar -->
             <aside class="article-sidebar">
-                @if($popularPosts && $popularPosts->count() > 0)
+                <?php if($popularPosts && $popularPosts->count() > 0): ?>
                 <div class="popular-posts">
                     <h3>Bài viết xem nhiều</h3>
-                    @foreach($popularPosts as $index => $popular)
+                    <?php $__currentLoopData = $popularPosts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $popular): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="popular-item">
-                        <div class="popular-number">{{ $index + 1 }}</div>
+                        <div class="popular-number"><?php echo e($index + 1); ?></div>
                         <div class="popular-content">
                             <div class="popular-title">
-                                <a href="{{ route('news.show', $popular->slug) }}">
-                                    {{ $popular->title }}
+                                <a href="<?php echo e(route('news.show', $popular->slug)); ?>">
+                                    <?php echo e($popular->title); ?>
+
                                 </a>
                             </div>
                             <div class="popular-meta">
-                                <span class="popular-category">{{ $popular->category->name }}</span>
+                                <span class="popular-category"><?php echo e($popular->category->name); ?></span>
                                 <span class="popular-views">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                                         <circle cx="12" cy="12" r="3"/>
                                     </svg>
-                                    {{ number_format($popular->views) }}
+                                    <?php echo e(number_format($popular->views)); ?>
+
                                 </span>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                @endif
+                <?php endif; ?>
             </aside>
         </div><!-- .article-layout -->
     </div><!-- .article-container -->
 
     <!-- Related Posts -->
-    @if($relatedPosts && $relatedPosts->count() > 0)
+    <?php if($relatedPosts && $relatedPosts->count() > 0): ?>
     <div class="related-posts">
         <h2 class="related-title">Bài viết liên quan</h2>
         <div class="related-grid">
-            @foreach($relatedPosts as $related)
+            <?php $__currentLoopData = $relatedPosts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <article class="related-card">
-                @if($related->images->first())
-                <a href="{{ route('news.show', $related->slug) }}">
+                <?php if($related->images->first()): ?>
+                <a href="<?php echo e(route('news.show', $related->slug)); ?>">
                     <div class="related-image">
-                        <img src="{{ asset('storage/' . $related->images->first()->image_path) }}" 
-                             alt="{{ $related->title }}">
+                        <img src="<?php echo e(asset('storage/' . $related->images->first()->image_path)); ?>" 
+                             alt="<?php echo e($related->title); ?>">
                     </div>
                 </a>
-                @endif
+                <?php endif; ?>
                 
                 <div class="related-content">
                     <div class="related-meta">
-                        <span class="related-category">{{ $related->category->name }}</span>
-                        <span>{{ $related->published_at->format('d/m/Y') }}</span>
+                        <span class="related-category"><?php echo e($related->category->name); ?></span>
+                        <span><?php echo e($related->published_at->format('d/m/Y')); ?></span>
                     </div>
                     <h3 class="related-post-title">
-                        <a href="{{ route('news.show', $related->slug) }}">
-                            {{ Str::limit($related->title, 80) }}
+                        <a href="<?php echo e(route('news.show', $related->slug)); ?>">
+                            <?php echo e(Str::limit($related->title, 80)); ?>
+
                         </a>
                     </h3>
-                    @if($related->excerpt)
+                    <?php if($related->excerpt): ?>
                     <p class="related-excerpt">
-                        {{ Str::limit($related->excerpt, 100) }}
+                        <?php echo e(Str::limit($related->excerpt, 100)); ?>
+
                     </p>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </article>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
-    @endif
+    <?php endif; ?>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     function sharePost() {
         if (navigator.share) {
             navigator.share({
-                title: '{{ $post->title }}',
-                text: '{{ $post->excerpt }}',
+                title: '<?php echo e($post->title); ?>',
+                text: '<?php echo e($post->excerpt); ?>',
                 url: window.location.href
             });
         } else {
@@ -1248,5 +1267,7 @@
         }
     }
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\2251172552_Tung\vodic\resources\views/news/show.blade.php ENDPATH**/ ?>

@@ -136,6 +136,15 @@
                                         class="form-input">
                                     <span class="form-hint">Tự động lấy thời gian hiện tại</span>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="is_important" value="1" 
+                                            {{ old('is_important') ? 'checked' : '' }}>
+                                        <span>⭐ Đánh dấu là tin quan trọng</span>
+                                    </label>
+                                    <span class="form-hint">Tin quan trọng sẽ hiển thị ở widget riêng trên trang chủ</span>
+                                </div>
                             </div>
 
                             <div class="form-actions">

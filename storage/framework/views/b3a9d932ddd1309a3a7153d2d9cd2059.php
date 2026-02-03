@@ -1,14 +1,14 @@
-@extends('layouts.app')
 
-@section('title', 'Tin tức - VODIC')
 
-@section('content')
+<?php $__env->startSection('title', 'Tin tức - VODIC'); ?>
+
+<?php $__env->startSection('content'); ?>
 <!-- Page Header -->
 <div style="background: linear-gradient(135deg, var(--ocean-dark), var(--ocean-blue)); padding: 3rem 1.5rem; color: white;">
     <div class="container" style="max-width: 1400px; margin: 0 auto;">
         <!-- Breadcrumb -->
         <nav class="breadcrumb" style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
-            <a href="{{ route('home') }}" style="color: rgba(255,255,255,0.9);">
+            <a href="<?php echo e(route('home')); ?>" style="color: rgba(255,255,255,0.9);">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle;">
                     <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                 </svg>
@@ -26,11 +26,11 @@
             
             <!-- Search Box -->
             <div style="display: flex; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                <form action="{{ route('news.index') }}" method="GET" style="display: flex;">
+                <form action="<?php echo e(route('news.index')); ?>" method="GET" style="display: flex;">
                     <input type="text" 
                            name="search" 
                            placeholder="Tìm kiếm tin tức..." 
-                           value="{{ request('search') }}"
+                           value="<?php echo e(request('search')); ?>"
                            style="border: none; padding: 0.75rem 1.25rem; font-size: 0.9375rem; width: 280px; outline: none;">
                     <button type="submit" style="background: var(--ocean-blue); border: none; padding: 0.75rem 1.5rem; color: white; cursor: pointer; font-weight: 600; transition: background 0.25s;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -56,43 +56,44 @@
             </div>
             
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; flex: 1;">
-                <a href="{{ route('news.index') }}" 
-                   class="badge {{ !request('category') ? 'badge-primary' : '' }}"
+                <a href="<?php echo e(route('news.index')); ?>" 
+                   class="badge <?php echo e(!request('category') ? 'badge-primary' : ''); ?>"
                    style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; transition: all 0.25s; 
-                          {{ !request('category') ? 'background: var(--ocean-blue); color: white;' : 'background: var(--gray-200); color: var(--gray-700);' }}">
+                          <?php echo e(!request('category') ? 'background: var(--ocean-blue); color: white;' : 'background: var(--gray-200); color: var(--gray-700);'); ?>">
                     Tất cả
                 </a>
                 
-                @foreach($categories as $cat)
-                    <a href="{{ route('news.index', ['category' => $cat->slug]) }}" 
-                       class="badge {{ request('category') == $cat->slug ? 'badge-primary' : '' }}"
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(route('news.index', ['category' => $cat->slug])); ?>" 
+                       class="badge <?php echo e(request('category') == $cat->slug ? 'badge-primary' : ''); ?>"
                        style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; transition: all 0.25s;
-                              {{ request('category') == $cat->slug ? 'background: var(--ocean-blue); color: white;' : 'background: var(--gray-200); color: var(--gray-700);' }}">
-                        {{ $cat->name }}
-                        <span style="opacity: 0.8;">({{ $cat->posts_count ?? 0 }})</span>
+                              <?php echo e(request('category') == $cat->slug ? 'background: var(--ocean-blue); color: white;' : 'background: var(--gray-200); color: var(--gray-700);'); ?>">
+                        <?php echo e($cat->name); ?>
+
+                        <span style="opacity: 0.8;">(<?php echo e($cat->posts_count ?? 0); ?>)</span>
                     </a>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
 
     <!-- Posts Grid -->
     <div class="news-grid" style="margin-bottom: 3rem;">
-        @forelse($posts as $post)
+        <?php $__empty_1 = true; $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <article class="news-card">
                 <div class="news-badge">
-                    <span class="badge-category">{{ $post->category->name }}</span>
+                    <span class="badge-category"><?php echo e($post->category->name); ?></span>
                 </div>
                 
-                @if($post->featured_image)
-                    <a href="{{ route('news.show', $post->slug) }}" class="news-image-link">
-                        <img src="{{ asset('storage/' . $post->featured_image) }}" 
-                             alt="{{ $post->title }}"
+                <?php if($post->featured_image): ?>
+                    <a href="<?php echo e(route('news.show', $post->slug)); ?>" class="news-image-link">
+                        <img src="<?php echo e(asset('storage/' . $post->featured_image)); ?>" 
+                             alt="<?php echo e($post->title); ?>"
                              class="news-image"
                              loading="lazy">
                     </a>
-                @else
-                    <a href="{{ route('news.show', $post->slug) }}" class="news-image-link">
+                <?php else: ?>
+                    <a href="<?php echo e(route('news.show', $post->slug)); ?>" class="news-image-link">
                         <div style="width: 100%; height: 220px; background: linear-gradient(135deg, var(--ocean-blue), var(--ocean-light)); display: flex; align-items: center; justify-content: center;">
                             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
                                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -101,16 +102,16 @@
                             </svg>
                         </div>
                     </a>
-                @endif
+                <?php endif; ?>
                 
                 <div class="news-content">
                     <h2 class="news-title">
-                        <a href="{{ route('news.show', $post->slug) }}">{{ $post->title }}</a>
+                        <a href="<?php echo e(route('news.show', $post->slug)); ?>"><?php echo e($post->title); ?></a>
                     </h2>
                     
-                    @if($post->excerpt)
-                        <p class="news-excerpt">{{ Str::limit($post->excerpt, 120) }}</p>
-                    @endif
+                    <?php if($post->excerpt): ?>
+                        <p class="news-excerpt"><?php echo e(Str::limit($post->excerpt, 120)); ?></p>
+                    <?php endif; ?>
                     
                     <div class="news-meta">
                         <span class="news-date">
@@ -120,103 +121,105 @@
                                 <line x1="8" y1="2" x2="8" y2="6"/>
                                 <line x1="3" y1="10" x2="21" y2="10"/>
                             </svg>
-                            {{ $post->published_at->format('d/m/Y') }}
+                            <?php echo e($post->published_at->format('d/m/Y')); ?>
+
                         </span>
                         <span class="news-views">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                                 <circle cx="12" cy="12" r="3"/>
                             </svg>
-                            {{ number_format($post->views) }}
+                            <?php echo e(number_format($post->views)); ?>
+
                         </span>
                     </div>
                 </div>
             </article>
-        @empty
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <div style="grid-column: 1/-1; text-align: center; padding: 5rem 2rem; background: white; border-radius: 12px;">
                 <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin: 0 auto 1.5rem; color: var(--gray-300);">
                     <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
                 </svg>
                 <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">
-                    @if(request('search'))
+                    <?php if(request('search')): ?>
                         Không tìm thấy kết quả
-                    @elseif(request('category'))
+                    <?php elseif(request('category')): ?>
                         Danh mục này chưa có bài viết
-                    @else
+                    <?php else: ?>
                         Chưa có bài viết nào
-                    @endif
+                    <?php endif; ?>
                 </h3>
                 <p style="color: var(--gray-600); margin-bottom: 1.5rem;">
-                    @if(request('search'))
-                        Không tìm thấy bài viết nào với từ khóa "{{ request('search') }}"
-                    @else
+                    <?php if(request('search')): ?>
+                        Không tìm thấy bài viết nào với từ khóa "<?php echo e(request('search')); ?>"
+                    <?php else: ?>
                         Vui lòng quay lại sau hoặc xem các danh mục khác
-                    @endif
+                    <?php endif; ?>
                 </p>
                 
-                @if(request('search') || request('category'))
-                    <a href="{{ route('news.index') }}" class="btn btn-primary">
+                <?php if(request('search') || request('category')): ?>
+                    <a href="<?php echo e(route('news.index')); ?>" class="btn btn-primary">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                         </svg>
                         Xem tất cả tin tức
                     </a>
-                @endif
+                <?php endif; ?>
             </div>
-        @endforelse
+        <?php endif; ?>
     </div>
 
     <!-- Pagination -->
-    @if($posts->hasPages())
+    <?php if($posts->hasPages()): ?>
         <div class="pagination">
-            {{-- Previous Page Link --}}
-            @if ($posts->onFirstPage())
+            
+            <?php if($posts->onFirstPage()): ?>
                 <span class="pagination-btn disabled">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="15 18 9 12 15 6"/>
                     </svg>
                     <span>Trang trước</span>
                 </span>
-            @else
-                <a href="{{ $posts->previousPageUrl() }}" class="pagination-btn">
+            <?php else: ?>
+                <a href="<?php echo e($posts->previousPageUrl()); ?>" class="pagination-btn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="15 18 9 12 15 6"/>
                     </svg>
                     <span>Trang trước</span>
                 </a>
-            @endif
+            <?php endif; ?>
 
-            {{-- Pagination Elements --}}
+            
             <div class="pagination-numbers">
-                @foreach ($posts->links()->elements[0] as $page => $url)
-                    @if ($page == $posts->currentPage())
-                        <span class="pagination-number active">{{ $page }}</span>
-                    @else
-                        <a href="{{ $url }}" class="pagination-number">{{ $page }}</a>
-                    @endif
-                @endforeach
+                <?php $__currentLoopData = $posts->links()->elements[0]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page => $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($page == $posts->currentPage()): ?>
+                        <span class="pagination-number active"><?php echo e($page); ?></span>
+                    <?php else: ?>
+                        <a href="<?php echo e($url); ?>" class="pagination-number"><?php echo e($page); ?></a>
+                    <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
-            {{-- Next Page Link --}}
-            @if ($posts->hasMorePages())
-                <a href="{{ $posts->nextPageUrl() }}" class="pagination-btn">
+            
+            <?php if($posts->hasMorePages()): ?>
+                <a href="<?php echo e($posts->nextPageUrl()); ?>" class="pagination-btn">
                     <span>Trang sau</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"/>
                     </svg>
                 </a>
-            @else
+            <?php else: ?>
                 <span class="pagination-btn disabled">
                     <span>Trang sau</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"/>
                     </svg>
                 </span>
-            @endif
+            <?php endif; ?>
         </div>
-    @endif
+    <?php endif; ?>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 <style>
 .badge:hover {
@@ -325,3 +328,4 @@
     }
 }
 </style>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\2251172552_Tung\vodic\resources\views/news/index.blade.php ENDPATH**/ ?>

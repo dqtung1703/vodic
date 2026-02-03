@@ -54,8 +54,8 @@
                 <tr>
                     <td>
                         <div class="post-info">
-                            <?php if($post->images->first()): ?>
-                                <img src="<?php echo e(asset('storage/' . $post->images->first()->image_path)); ?>" 
+                            <?php if($post->featured_image): ?>
+                                <img src="<?php echo e(asset('storage/' . $post->featured_image)); ?>" 
                                      alt="<?php echo e($post->title); ?>" 
                                      class="post-thumbnail">
                             <?php endif; ?>

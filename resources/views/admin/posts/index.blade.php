@@ -53,8 +53,8 @@
                 <tr>
                     <td>
                         <div class="post-info">
-                            @if($post->images->first())
-                                <img src="{{ asset('storage/' . $post->images->first()->image_path) }}" 
+                            @if($post->featured_image)
+                                <img src="{{ asset('storage/' . $post->featured_image) }}" 
                                      alt="{{ $post->title }}" 
                                      class="post-thumbnail">
                             @endif

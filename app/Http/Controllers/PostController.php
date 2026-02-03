@@ -44,7 +44,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::with(['category', 'user', 'images'])
+        $post = Post::with(['category', 'user', 'images', 'comments.user'])
             ->where('slug', $slug)
             ->published()
             ->firstOrFail();

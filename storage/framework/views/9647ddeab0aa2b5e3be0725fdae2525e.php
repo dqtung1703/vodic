@@ -23,7 +23,7 @@
                 
                 <!-- Dropdown: Dữ liệu Biển đảo -->
                 <div class="nav-dropdown">
-                    <a href="#" class="nav-link">
+                    <a href="https://vodic.vn/SeaDBSearch/SearchDataMap.html" class="nav-link">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 002-2v-4M17 8l-5-5-5 5M12 3v12"></path>
                         </svg>
@@ -33,34 +33,34 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu">
-                        <a href="https://vodic.gov.vn/open-data" target="_blank" class="dropdown-item">
+                        <a href="http://data.vodic.vn/" target="_blank" class="dropdown-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
                             </svg>
                             Trang dữ liệu mở
                         </a>
-                        <a href="https://vodic.gov.vn/metadata" target="_blank" class="dropdown-item">
+                        <a href="http://seaportal.vodic.vn/" target="_blank" class="dropdown-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
                                 <polyline points="14 2 14 8 20 8"></polyline>
                             </svg>
                             Thông tin metadata
                         </a>
-                        <a href="https://vodic.gov.vn/library" target="_blank" class="dropdown-item">
+                        <a href="https://thuvien.vodic.vn/" target="_blank" class="dropdown-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path>
                                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"></path>
                             </svg>
                             Trang thông tin thư viện
                         </a>
-                        <a href="https://vodic.gov.vn/survey-map" target="_blank" class="dropdown-item">
+                        <a href="https://nodc.gov.vn/" target="_blank" class="dropdown-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
                             Bản đồ điều tra cơ bản
                         </a>
-                        <a href="https://vodic.gov.vn/open-source" target="_blank" class="dropdown-item">
+                        <a href="https://vodic.vn/SeaDBSearch/SearchDataMap.html" target="_blank" class="dropdown-item">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="16 18 22 12 16 6"></polyline>
                                 <polyline points="8 6 2 12 8 18"></polyline>
@@ -82,10 +82,14 @@
                     <!-- User Avatar Dropdown -->
                     <div class="user-dropdown">
                         <button class="user-avatar-btn">
-                            <div class="user-avatar">
-                                <?php echo e(strtoupper(substr(auth()->user()->name, 0, 1))); ?>
+                            <?php if(auth()->user()->hasAvatar()): ?>
+                                <img src="<?php echo e(auth()->user()->getAvatarUrl()); ?>" alt="Avatar" class="user-avatar-img">
+                            <?php else: ?>
+                                <div class="user-avatar">
+                                    <?php echo e(strtoupper(substr(auth()->user()->name, 0, 1))); ?>
 
-                            </div>
+                                </div>
+                            <?php endif; ?>
                             <span class="user-name"><?php echo e(auth()->user()->name); ?></span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="6 9 12 15 18 9"></polyline>
